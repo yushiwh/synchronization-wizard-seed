@@ -1,4 +1,4 @@
-package com.jzt.sync.web;
+package com.jzt.sync.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -6,6 +6,10 @@ import com.jzt.sync.core.Result;
 import com.jzt.sync.core.ResultGenerator;
 import com.jzt.sync.model.TestUser;
 import com.jzt.sync.service.TestUserService;
+import com.jzt.sync.util.IdWorker;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,19 +23,25 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/test/user")
+@Slf4j
 public class TestUserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestUserController.class);
+
     @Resource
     private TestUserService testUserService;
 
     @PostMapping("/add")
     public Result add(TestUser testUser) {
+        Long id = IdWorker.getId();
+        testUser.setId(id);
         testUserService.save(testUser);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        testUserService.deleteById(Long.parseLong(id + ""));
+    public Result delete(@RequestParam Long id) {
+        testUserService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
@@ -42,8 +52,8 @@ public class TestUserController {
     }
 
     @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        TestUser testUser = testUserService.findById(Long.parseLong(id + ""));
+    public Result detail(@RequestParam Long id) {
+        TestUser testUser = testUserService.findById(id);
         return ResultGenerator.genSuccessResult(testUser);
     }
 
@@ -52,6 +62,7 @@ public class TestUserController {
         PageHelper.startPage(page, size);
         List<TestUser> list = testUserService.findAll();
         PageInfo pageInfo = new PageInfo(list);
+        logger.info("测试的日志", list.size());
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 }

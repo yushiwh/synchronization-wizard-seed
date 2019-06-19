@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加上传程序</title>
+</head>
+<body>
+
+<div class="container">
+    <form class="form-upload-img" th:action="@{/upload}" enctype="multipart/form-data" method="post">
+
+        <label>更新后启动的程序：</label><input type="text" class="form-control" name="appName"/>
+        <br>
+
+        <label>*程序名称：</label><input type="text" class="form-control" placeholder="必填" name="applicationStart"/>
+        <br>
+
+        <label>*版本号：</label><input type="text" class="form-control" placeholder="必填" name="minVersion"/>
+        <br>
+
+        <label>*发布版本号：</label><input type="text" class="form-control" placeholder="必填" name="releaseVersion"/>
+        <br>
+
+        <label>*更新界面提示信息：</label><input type="text" class="form-control" placeholder="必填" name="versionDesc"/>
+        <br>
+
+        <input type="file" class="form-control" name="file" id="fileOne" multiple required/>
+        <input type="hidden" class="form-control" name="format" value="html"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
+    </form>
+
+    <div class="row" id="txt">
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -34,16 +34,7 @@ public class TestController {
     }
 
 
-    /**
-     * 测试得到
-     *
-     * @return
-     */
-    @RequestMapping("gettestuser")
-    public Result getTestUser() {
-        TestUser testUser = testUserService.findBy("userName", "张三");
-        return ResultGenerator.genSuccessResult(testUser).putMsg("登录成功");
-    }
+
 
 
 }

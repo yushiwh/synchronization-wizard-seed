@@ -44,3 +44,20 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
 
 ## License
 无，纯粹开源分享，感谢大家 [Star](https://github.com/lihengming/spring-boot-api-project-seed/stargazers) & [Fork](https://github.com/lihengming/spring-boot-api-project-seed/network/members) 的支持。
+
+
+- 增加文件上传UploadController和一些工具类
+- 增加shiro+jwt的验证token 可以参照https://github.com/yushiwh/springboot2.0-chapter中的springboot-shiro-jwt小项目进行理解
+  - http://localhost:8080/guest/welcome   游客页面 正常不用登录
+  - http://localhost:8080/user/getMessage 您没有权限访问
+  - http://localhost:8080/user/getMessage  登录后 http://localhost:8080/login?username=wq&password=1234567
+    拿到对应的token 然后在上面的地址的headers中增加参数 key:Token value:获取到的token。能成功返回成功获得信息
+  - 只需要在controller上面加上对应的注解即可  
+    - @RequiresRoles("admin") admin权限
+    - @RequiresRoles(logical = Logical.OR, value = {"user", "admin"}) 拥有 user, admin 角色的用户
+    -  @RequiresRoles(logical = Logical.OR, value = {"user", "admin"})
+       @RequiresPermissions("vip")  拥有 vip 权限可以访问该页面  角色和权限的双重控制
+
+- 增加消息队列：RabbitMq   test中的RabbitMqTest
+
+

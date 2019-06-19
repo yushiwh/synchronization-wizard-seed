@@ -1,11 +1,14 @@
-package com.jzt.sync.configurer;
+package com.jzt.sync.controller;
 
 import com.jzt.sync.core.Result;
 import com.jzt.sync.core.ServiceException;
+import com.jzt.sync.model.ResultMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.shiro.ShiroException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,15 +21,44 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author libiao
- * @create 2019/2/21 13:40
- * @description
+ * Created with IntelliJ IDEA
+ *
+ * @Author yushiwh
+ * @Description 异常处理
+ * @Date 2018-04-09
+ * @Time 17:09
  */
-@RestController
 @RestControllerAdvice
 @Slf4j
 public class ExceptionController {
+    private final ResultMap resultMap;
 
+    @Autowired
+    public ExceptionController(ResultMap resultMap) {
+        this.resultMap = resultMap;
+    }
+
+    // 捕捉shiro的异常
+    @ExceptionHandler(ShiroException.class)
+    public ResultMap handle401() {
+        return resultMap.fail().code(401).message("您没有权限访问！");
+    }
+
+    // 捕捉其他所有异常
+    @ExceptionHandler(Exception.class)
+    public ResultMap globalException(HttpServletRequest request, Throwable ex) {
+        return resultMap.fail()
+                .code(getStatus(request).value())
+                .message("访问出错，无法访问: " + ex.getMessage());
+    }
+
+    private HttpStatus getStatus(HttpServletRequest request) {
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        if (statusCode == null) {
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return HttpStatus.valueOf(statusCode);
+    }
 
     public static Object PROCESS_ERROR(HttpServletRequest request, Exception ex) {
         Map<String, Object> r = new LinkedHashMap<>();
@@ -41,7 +73,7 @@ public class ExceptionController {
         } else {
             //其他异常
             log.error(ex.toString(), ex);
-            ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getResponse().setStatus(500);
+            ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse().setStatus(500);
             Enumeration<String> enuma = request.getHeaderNames();
             Map<String, Object> vl = new LinkedHashMap<>();
             while (enuma.hasMoreElements()) {
@@ -78,11 +110,7 @@ public class ExceptionController {
         return r;
     }
 
-    @ExceptionHandler(Exception.class)
-    public Object handleError(HttpServletRequest request, Exception ex) {
-        Object errorData = PROCESS_ERROR(request, ex);
-        return errorData;
-    }
+
 
     private static String currentRemoteIp(HttpServletRequest request) {
         if (request == null) {
@@ -93,4 +121,5 @@ public class ExceptionController {
         }
         return request.getRemoteAddr();
     }
+
 }
