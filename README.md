@@ -59,5 +59,9 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
        @RequiresPermissions("vip")  拥有 vip 权限可以访问该页面  角色和权限的双重控制
 
 - 增加消息队列：RabbitMq   test中的RabbitMqTest
+  - 配置：RabbitConfig
+  - 发送：test中的RabbitMqTest
+  - 接收：Receiver
 
 - 增加Http发送请求与对象复制，得到json数据后进行解析和反序列化  HttpController为例
+- 增加JUnit的支持 测试方法详见test路径下的RabbitMqTest 需要继承Tester
