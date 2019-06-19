@@ -65,3 +65,38 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
 
 - 增加Http发送请求与对象复制，得到json数据后进行解析和反序列化  HttpController为例
 - 增加JUnit的支持 测试方法详见test路径下的RabbitMqTest 需要继承Tester
+
+
+
+
+## 一些需要的说明参数
+- 数据库：
+  -  开发/测试： 10.4.9.161:3307
+  -  用户名：sync
+  -  密码：zEiWLps49MFm
+  
+- mq：
+  - 测试环境
+  - host：10.3.5.30
+  - port：5672
+  - username=admin
+  - password=admin
+  - 访问url：http://rabbit.test.yyjzt.com/#/queues admin admin
+  
+  
+- 上传
+   - 访问页面：http://10.4.9.170:8080/upload
+   - 访问域名：http://10.4.9.170:2212/download/
+   - 上传绝对路径：/home/admin/htdocs
+   - 上传路径：syncwizard.dev.yyjzt.com/upload/（拼接上面路径就是服务器路径）
+   - 下载：http://10.4.9.170:2212/download/20190619/15609094490471a7.rar
+   - 文件存放位置 cd /home/admin/htdocs/syncwizard.dev.yyjzt.com/upload/
+   
+-  服务器查看日志
+   -  本地日志  10.4.9.170     admin  jztdzswadmin70
+   -  tail -n 99 /home/admin/htdocs/syncwizard.dev.yyjzt.com/syncwizard.wizard.log
+   -  tail -f out.log
+   -  tail -n 999 out.log 这是看最新999行的
+   -  sz  out_2019-01-11-07.log   拷贝日志\
+   -  cat out.log|grep 'abcd'   查看字符串的日志   
+
