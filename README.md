@@ -60,4 +60,4 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
 
 - 增加消息队列：RabbitMq   test中的RabbitMqTest
 
-
+- 增加Http发送请求与对象复制，得到json数据后进行解析和反序列化  HttpController为例
