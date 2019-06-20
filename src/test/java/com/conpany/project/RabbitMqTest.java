@@ -10,9 +10,13 @@
  */
 package com.conpany.project;
 
+import com.jzt.sync.model.QueueEnum;
+import com.jzt.sync.mq.provide.MessageProvider;
 import com.jzt.sync.service.impl.Sender;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
 
 /**
  * 〈mq的测试〉
@@ -25,8 +29,32 @@ public class RabbitMqTest extends Tester {
     @Autowired
     private Sender sender;
 
+    @Autowired
+    private MessageProvider messageProvider;
+
+
+    /**
+     * 及时消费
+     *
+     * @throws Exception
+     */
     @Test
     public void hello() throws Exception {
         sender.send();
     }
+
+    /**
+     * 延迟消费
+     *
+     * @throws Exception
+     */
+    @Test
+    public void lazyHello() throws Exception {
+        // 测试延迟10秒
+        messageProvider.sendMessage("测试延迟消费,写入时间：" + new Date(),
+                QueueEnum.MESSAGE_TTL_QUEUE.getExchange(),
+                QueueEnum.MESSAGE_TTL_QUEUE.getRouteKey(),
+                10000);
+    }
+
 }

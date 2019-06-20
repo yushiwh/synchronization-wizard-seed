@@ -62,6 +62,12 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
   - 配置：RabbitConfig
   - 发送：test中的RabbitMqTest
   - 接收：Receiver
+  
+  - 延迟消息队列
+  - 配置：MessageRabbitMqConfiguration
+  - 发送：MessageProvider
+  - 消费：MessageConsumer
+  - 测试：RabbitMqTest
 
 - 增加Http发送请求与对象复制，得到json数据后进行解析和反序列化  HttpController为例
 - 增加JUnit的支持 测试方法详见test路径下的RabbitMqTest 需要继承Tester
