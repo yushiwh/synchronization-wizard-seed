@@ -63,7 +63,7 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
   - 发送：test中的RabbitMqTest
   - 接收：Receiver
   
-  - 延迟消息队列
+- 延迟消息队列
   - 配置：MessageRabbitMqConfiguration
   - 发送：MessageProvider
   - 消费：MessageConsumer
