@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzt.sync.dao.VersionMapper">
+    <resultMap id="BaseResultMap" type="com.jzt.sync.model.Version">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="app_name" jdbcType="VARCHAR" property="appName"/>
+        <result column="application_start" jdbcType="VARCHAR" property="applicationStart"/>
+        <result column="force_update" jdbcType="BIGINT" property="forceUpdate"/>
+        <result column="min_version" jdbcType="VARCHAR" property="minVersion"/>
+        <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate"/>
+        <result column="release_url" jdbcType="VARCHAR" property="releaseUrl"/>
+        <result column="release_version" jdbcType="VARCHAR" property="releaseVersion"/>
+        <result column="update_mode" jdbcType="VARCHAR" property="updateMode"/>
+        <result column="version_desc" jdbcType="VARCHAR" property="versionDesc"/>
+        <result column="create_at" jdbcType="TIMESTAMP" property="createAt"/>
+        <result column="update_at" jdbcType="TIMESTAMP" property="updateAt"/>
+    </resultMap>
+    <select id="getLastVersion" resultMap="BaseResultMap">
+    SELECT   a.id, app_name, application_start, force_update, min_version,   release_date , release_url, release_version, update_mode, version_desc, create_at, update_at
+    FROM version a
+    ORDER BY a.release_date DESC
+    LIMIT 0,1
+    </select>
+</mapper>

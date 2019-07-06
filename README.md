@@ -106,3 +106,26 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
    -  sz  out_2019-01-11-07.log   拷贝日志\
    -  cat out.log|grep 'abcd'   查看字符串的日志   
 
+- 增加读写分离 
+  -   @RoutingDataSource(DataSources.SLAVE_DB)  //从库
+  -  //@RoutingDataSource(DataSources.MASTER_DB) //主库
+  -  保存 用basemapper的方法 走主库
+     http://localhost:8082/test/user/add?userName=999&password=1232143214
+  -  查询： 走从库 localhost:8082/test/user/testmsdatasource
+  
+  1. pom里面 
+   <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>2.1.9</version>
+        </dependency>
+
+   <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+  
+  2. datasource包里面的配置 特别注意MybatisConfig，注意里面的import
+     tk.mybatis.spring.annotation.MapperScan;是导入这个包
+  3. 注意DatasourceConfig的数据源获取的前缀

@@ -10,10 +10,7 @@ import com.jzt.sync.util.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -64,5 +61,15 @@ public class TestUserController {
         PageInfo pageInfo = new PageInfo(list);
         logger.info("测试的日志", list.size());
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    /**
+     * 测试一下主从库
+     *
+     * @return
+     */
+    @GetMapping("/testmsdatasource")
+    public Result testmsdatasource() {
+        return ResultGenerator.genSuccessResult(testUserService.getTestUsers());
     }
 }
