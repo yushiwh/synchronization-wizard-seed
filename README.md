@@ -47,6 +47,8 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
 
 
 - 增加文件上传UploadController和一些工具类
+
+
 - 增加shiro+jwt的验证token 可以参照https://github.com/yushiwh/springboot2.0-chapter中的springboot-shiro-jwt小项目进行理解
   - http://localhost:8080/guest/welcome   游客页面 正常不用登录
   - http://localhost:8080/user/getMessage 您没有权限访问
