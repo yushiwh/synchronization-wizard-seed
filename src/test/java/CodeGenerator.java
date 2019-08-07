@@ -42,6 +42,16 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
+        /**
+         * 要使用这个功能，必须在pom里面放开这个引用，然后开发的时候注释掉
+         *  <!--为了解决通用mapper的冲突，所以去掉-->
+         *         <!-- <dependency>
+         *             <groupId>tk.mybatis</groupId>
+         *             <artifactId>mapper</artifactId>
+         *             <version>3.4.2</version>
+         *         </dependency>-->
+         */
+
         genCode("user_config");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
