@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzt.sync.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jzt.sync.model.UserInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="pword" jdbcType="VARCHAR" property="pword" />
+    <result column="sync_system_id" jdbcType="INTEGER" property="syncSystemId" />
+    <result column="tripartite_username" jdbcType="VARCHAR" property="tripartiteUsername" />
+    <result column="tripartite_password" jdbcType="VARCHAR" property="tripartitePassword" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+  </resultMap>
+
+
+    <resultMap id="BaseResultVoMap" type="com.jzt.sync.model.Vo.UserInfoVo" extends="BaseResultMap">
+
+
+        <result column="platform_name" jdbcType="VARCHAR" property="platformName" />
+    </resultMap>
+
+
+    <select id="getUserInfoList" resultMap="BaseResultVoMap">
+
+
+        select a.user_id, a.username , a.pword , a.sync_system_id , a.tripartite_username, a.tripartite_password,
+        b.platform_name,a.create_at,a.update_at
+         from user_info a inner join sync_system b on a.sync_system_id = b.id
+    </select>
+</mapper>

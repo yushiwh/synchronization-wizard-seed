@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzt.sync.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.jzt.sync.model.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_agent_id" jdbcType="VARCHAR" property="userAgentId"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd"/>
+        <result column="login_pwd_jm" jdbcType="VARCHAR" property="loginPwdJm"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="link_name" jdbcType="VARCHAR" property="linkName"/>
+        <result column="link_phone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="create_at" jdbcType="TIMESTAMP" property="createAt"/>
+        <result column="update_at" jdbcType="TIMESTAMP" property="updateAt"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzt.sync.dao.ExceptionCollectionMapper">
+  <resultMap id="BaseResultMap" type="com.jzt.sync.model.ExceptionCollection">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_agent_id" jdbcType="VARCHAR" property="userAgentId" />
+    <result column="excetionstr" jdbcType="VARCHAR" property="excetionstr" />
+    <result column="creat_at" jdbcType="TIMESTAMP" property="creatAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+  </resultMap>
+</mapper>
