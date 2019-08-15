@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
- 
+
 </div>
 <script src="../layuiadmin/layui/layui.js"></script>
 <script>
@@ -61,14 +61,49 @@
       base: '../layuiadmin/' //静态资源所在路径
     }).extend({
         login: 'lib/login' //
-    }).use(['jquery','element','form','login'],function(){
+    }).use(['jquery','element','form','login','allParm'],function(){
         var $ = layui.jquery,
             form = layui.form,
             element = layui.element,
             login = layui.login;
-            $(document).on('click','#btn',function(){
-                login.login('11','22');
+        form.render(null, 'component-form-element');
+        form.on('submit(login)', function (data) {
+            // login.login('11','22');
+            //   layer.msg(JSON.stringify(data.field));
+            //   layer.msg(myUrl);
+
+            $.ajax({
+                url: myUrl+'/login',
+                type: 'post',
+                data: data.field,
+                beforeSend: function () {
+                    this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
+                },
+                success: function (data) {
+                    if (data.code == '401') {
+                        layer.msg(data.message, {icon: 5});//失败的表情
+                        return;
+                    } else if (data.result == 'success') {
+                        // layer.msg(data.message, {
+                        //     icon: 6,//成功的表情
+                        //     time: 10000 //1秒关闭（如果不配置，默认是3秒）
+                        // },
+                        //     function () {
+                        //     // location.reload();
+                        //     document.location.href = "views/index.html";
+                        // });
+                        document.location.href = "views/index.html";
+
+                    }
+                },
+                complete: function () {
+                    layer.close(this.layerIndex);
+                },
             });
+            return false;//阻止表单跳转
+
+
+        });
     });
     </script>
 </body>
