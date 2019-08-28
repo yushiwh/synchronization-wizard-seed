@@ -5,6 +5,7 @@ import com.jzt.sync.core.Result;
 import com.jzt.sync.core.ResultGenerator;
 import com.jzt.sync.model.TestUser;
 import com.jzt.sync.service.TestUserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,13 +29,11 @@ public class TestController {
     @Autowired
     private TestUserService testUserService;
 
+    @ApiOperation(value = "测试", notes = "查看服务器是否正常返回")
     @RequestMapping("test")
     public String test() {
         return "system is ok ";
     }
-
-
-
 
 
 }

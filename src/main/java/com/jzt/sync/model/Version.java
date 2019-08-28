@@ -1,13 +1,18 @@
 package com.jzt.sync.model;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Administrator
+ */
 @Data
 @Table(name = "version")
+@ApiModel("version")
 public class Version implements Serializable {
     /**
      * 主键
