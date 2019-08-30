@@ -5,9 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.jzt.sync.dao.UserMapper;
-import com.jzt.sync.model.JWTUser;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jzt.sync.model.ReturnToken;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -17,17 +16,32 @@ import java.util.Date;
  *
  * @Author yushiwh
  * @Description JWT 工具类
- * @Date 2018-04-07
+ * @Date 2019-04-07
  * @Time 22:48
  */
 public class JWTUtil {
-    // 过期时间 24 小时
+
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(JWTUtil.class);
+    /**
+     * 服务端过期时间 24 小时
+     */
     private static final long EXPIRE_TIME = 60 * 24 * 60 * 1000;
-    // 密钥
+
+    /**
+     * 客户端过期时间24小时
+     */
+    private static final long CLIENT_EXPIRE_TIME = 60 * 24 * 60 * 1000;
+
+    /**
+     * 服务端密钥
+     */
     private static final String SECRET = "SHIRO+JWT";
 
-    @Autowired
-    private UserMapper userMapper;
+    /**
+     * 客户端密钥
+     */
+    private static final String CLIENT_SECRET = "RZKJ";
+
 
     /**
      * 生成 token, 5min后过期
@@ -42,6 +56,31 @@ public class JWTUtil {
             // 附带username信息
             return JWT.create()
                     .withClaim("username", username)
+                    //到期时间
+                    .withExpiresAt(date)
+                    //创建一个新的JWT，并使用给定的算法进行标记
+                    .sign(algorithm);
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 客户端获取token ，24小时过期
+     * 增加了过期时间
+     *
+     * @param username 登录的用户名
+     * @return
+     */
+    public static String createClientToken(String username) {
+        try {
+            Date date = new Date(System.currentTimeMillis() + CLIENT_EXPIRE_TIME);
+            Algorithm algorithm = Algorithm.HMAC256(CLIENT_SECRET);
+            // 附带username信息
+            return JWT.create()
+                    .withClaim("username", username)
+                    //增加过期时间
+                    .withClaim("expires", date)
                     //到期时间
                     .withExpiresAt(date)
                     //创建一个新的JWT，并使用给定的算法进行标记
@@ -83,6 +122,8 @@ public class JWTUtil {
     public static String getUsername(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
+            //    logger.info("过期时间：" +  jwt.getClaim("expires").asLong().longValue());
+
             return jwt.getClaim("username").asString();
         } catch (JWTDecodeException e) {
             return null;
@@ -91,17 +132,22 @@ public class JWTUtil {
 
 
     /**
-     * 获得token中的信息，无需secret解密也能获得
+     * 从token中解密用户名和过期时间
      *
-     * @return token中包含的用户名
+     * @param token
+     * @return
      */
-    public JWTUser getJwtUser(String token) {
+    public static ReturnToken getToken(String token) {
         try {
+            ReturnToken rt = new ReturnToken();
             DecodedJWT jwt = JWT.decode(token);
-
-            return userMapper.getJwtUser(jwt.getClaim("username").asString());
+            rt.setExpires(jwt.getClaim("expires").asLong().longValue());
+            rt.setUsername(jwt.getClaim("username").asString());
+            return rt;
         } catch (JWTDecodeException e) {
             return null;
         }
     }
+
+
 }

@@ -131,3 +131,9 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
   2. datasource包里面的配置 特别注意MybatisConfig，注意里面的import
      tk.mybatis.spring.annotation.MapperScan;是导入这个包
   3. 注意DatasourceConfig的数据源获取的前缀
+  
+  
+- 自定义filter，拦截token，非shiro
+- http://localhost:8082/getToken 获取token
+- http://localhost:8082/testToken header中带上bear 
+- 自定义拦截器为SynchronizationWizardFilter，注意在启动类上面加上@ServletComponentScan
