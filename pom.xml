@@ -146,11 +146,11 @@
             <version>3.4.5</version>
         </dependency>
         <!--为了解决通用mapper的冲突，所以去掉-->
-        <!-- <dependency>
+         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
             <version>3.4.2</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
@@ -293,6 +293,11 @@
         <!-- 参考：https://github.com/springfox/springfox/issues/2265-->
 
 
+        <!--mongodb-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
 
 
 

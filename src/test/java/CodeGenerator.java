@@ -52,7 +52,7 @@ public class CodeGenerator {
          *         </dependency>-->
          */
 
-        genCode("user_config");
+        genCode("AAAA");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

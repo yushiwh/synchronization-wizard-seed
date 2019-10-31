@@ -137,3 +137,19 @@ Spring Boot API Project Seed 是一个基于Spring Boot & MyBatis的种子项目
 - http://localhost:8082/getToken 获取token
 - http://localhost:8082/testToken header中带上bear 
 - 自定义拦截器为SynchronizationWizardFilter，注意在启动类上面加上@ServletComponentScan
+
+
+
+### mongdb
+
+- <font color=red>  **本机**</font>：http://git.yyjzt.com/mdt/synchronization-wizard.git
+  - 地址：D:\mongodb（包直接解压：d:\mongodb-win32-x86_64-v3.2-latest.zip
+    配置环境变量path d:\mongodb\bin）
+- <font color=red> **命令**：</font>
+  -  本机： 
+     -    开启：cmd-->C:\Users\Administrator>mongod -storageEngine mmapv1 -dbpath d:\mongodb\(一直保持开启)
+     
+ 
+
+
+
