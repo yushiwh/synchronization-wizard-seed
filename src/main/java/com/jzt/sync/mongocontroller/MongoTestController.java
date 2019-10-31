@@ -173,7 +173,12 @@ public class MongoTestController {
         System.out.println("插入结束" + new Date());
     }
 
-
+    /**
+     * 随机时间
+     * @param beginDate  开始时间
+     * @param endDate 结束时间
+     * @return
+     */
     public static Date randomDate(String beginDate, String endDate) {
         //时间格式化
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
