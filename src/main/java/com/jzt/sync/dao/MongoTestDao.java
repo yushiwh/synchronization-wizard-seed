@@ -8,13 +8,23 @@
  */
 package com.jzt.sync.dao;
 
+import com.jzt.sync.model.Commodity;
+import com.jzt.sync.model.CommodityNew;
 import com.jzt.sync.model.MongoTest;
+import com.jzt.sync.model.SingleCommodity;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * 〈〉
@@ -35,6 +45,23 @@ public class MongoTestDao {
         mongoTemplate.save(test);
     }
 
+
+    /**
+     * 创建对象
+     */
+    public void save(SingleCommodity sc) {
+        mongoTemplate.save(sc);
+    }
+
+
+    /**
+     * 创建对象
+     */
+    public void saveCommodityNew(CommodityNew cn) {
+        mongoTemplate.save(cn);
+    }
+
+
     /**
      * 根据用户名查询对象
      *
@@ -45,6 +72,42 @@ public class MongoTestDao {
         MongoTest mgt = mongoTemplate.findOne(query, MongoTest.class);
         return mgt;
     }
+
+    public SingleCommodity findTestById(Long id) {
+        SingleCommodity sc = mongoTemplate.findById(id, SingleCommodity.class);
+        return sc;
+    }
+
+    public List<Commodity> findCommodityNewById(Long id) {
+        CommodityNew cn = mongoTemplate.findById(id, CommodityNew.class);
+        List<Commodity> list = cn.getList();
+        list.sort(Commodity.Comparators.LASTTIME);
+        return list;
+    }
+
+
+    /**
+     * 根据shopid和commodityId查询商品
+     *
+     * @return
+     */
+    public List<SingleCommodity> findSingleCommodity(int shopId, int commodityId) {
+        Query query = new Query();
+        Criteria criteria = Criteria.where("shopId").is(shopId).and("commodityId").is(commodityId);
+        query.addCriteria(criteria);
+        query.limit(1);
+//        query.with(Sort.by(
+//                Sort.Order.asc("readOrNot"),
+//                Sort.Order.desc("lastTime")
+//        ));
+        query.with(Sort.by(
+                Sort.Order.desc("lastTime")
+        ));
+
+        List<SingleCommodity> sc = mongoTemplate.find(query, SingleCommodity.class);
+        return sc;
+    }
+
 
     /**
      * 更新对象
