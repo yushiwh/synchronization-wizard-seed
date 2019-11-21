@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzt.sync.dao.TtlProductInfoMapper">
+
+    <select id="listProduct" resultType="com.jzt.sync.model.TtlProductInfoPo"
+            parameterType="java.util.Map">
+        SELECT aa.id,aa.product_name,aa.category_id,aa.category_name,aa.branch_id
+        ,aa.branch_name,aa.shop_id,aa.shop_name,aa.price,aa.stock,aa.sales_num,
+        aa.create_time,aa.update_time,aa.is_del
+        FROM ttl_product_info aa
+        LIMIT #{offset},#{limit}
+    </select>
+
+</mapper>
