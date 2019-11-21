@@ -152,9 +152,6 @@ public class TtlProductInfoServiceImpl extends AbstractService<TtlProductInfoPo>
 
         log.info("查询结束，耗时:{}", System.currentTimeMillis() - start);
         return productInfoPos;
-
-
-
     }
 
     /**
