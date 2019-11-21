@@ -38,8 +38,8 @@ import java.util.Map;
 public class ExcelUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUtils.class);
 
-    public static final int ROW_ACCESS_WINDOW_SIZE = 100;
-    public static final int SHEET_MAX_ROW = 100000;
+    private static final int ROW_ACCESS_WINDOW_SIZE = 100;
+    private static final int SHEET_MAX_ROW = 100000;
 
     private List list;
     private List<ExcelHeaderInfo> excelHeaderInfos;
@@ -72,7 +72,8 @@ public class ExcelUtils {
             if (i % SHEET_MAX_ROW == 0) {
                 // 创建新的sheet
                 sheet = createSheet(workbook, i);
-                pageRowNum = 0; // 行号重置为0
+                // 行号重置为0
+                pageRowNum = 0;
                 for (int j = 0; j < getHeaderRowNum(excelHeaderInfos); j++) {
                     sheet.createRow(pageRowNum++);
                 }
@@ -86,7 +87,9 @@ public class ExcelUtils {
         return workbook;
     }
 
-    // 创建表头
+    /**
+     * 创建表头
+     */
     private void createHeader(Sheet sheet, CellStyle style) {
         for (ExcelHeaderInfo excelHeaderInfo : excelHeaderInfos) {
             Integer lastRow = excelHeaderInfo.getLastRow();
@@ -109,7 +112,9 @@ public class ExcelUtils {
         }
     }
 
-    // 创建正文
+    /**
+     * 创建正文
+     */
     private void createContent(Row row, CellStyle style, String[][] content, int i, Field[] fields) {
         List<String> columnNames = getBeanProperty(fields);
         for (int j = 0; j < columnNames.size(); j++) {
@@ -137,6 +142,8 @@ public class ExcelUtils {
                         Cell cell1 = row.createCell(j);
                         cell1.setCellStyle(style);
                         row.createCell(j).setCellValue(this.parseDate(content[i][j]));
+                    default:
+                        break;
                 }
             } else {
                 row.createCell(j).setCellValue(content[i][j]);
@@ -144,7 +151,9 @@ public class ExcelUtils {
         }
     }
 
-    // 将原始数据转成二维数组
+    /**
+     * 将原始数据转成二维数组
+     */
     private String[][] transformData() {
         int dataSize = this.list.size();
         String[][] datas = new String[dataSize][];
@@ -167,7 +176,9 @@ public class ExcelUtils {
         return datas;
     }
 
-    // 获取实体类的字段名称数组
+    /**
+     * 获取实体类的字段名称数组
+     */
     private List<String> getBeanProperty(Field[] fields) {
         List<String> columnNames = new ArrayList<>();
         for (Field field : fields) {
@@ -178,7 +189,9 @@ public class ExcelUtils {
         return columnNames;
     }
 
-    // 新建表格
+    /**
+     * 新建表格
+     */
     private static Sheet createSheet(Workbook workbook, int i) {
         Integer sheetNum = i / SHEET_MAX_ROW;
         workbook.createSheet("sheet" + sheetNum);
@@ -186,7 +199,9 @@ public class ExcelUtils {
         return workbook.getSheetAt(sheetNum);
     }
 
-    // 获取标题总行数
+    /**
+     * 获取标题总行数
+     */
     private static Integer getHeaderRowNum(List<ExcelHeaderInfo> headerInfos) {
         Integer maxRowNum = 0;
         for (ExcelHeaderInfo excelHeaderInfo : headerInfos) {
@@ -196,7 +211,9 @@ public class ExcelUtils {
         return maxRowNum + 1;
     }
 
-    // 设置总体表格样式
+    /**
+     * 设置总体表格样式
+     */
     private static CellStyle setCellStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         style.setAlignment(HorizontalAlignment.CENTER);
@@ -204,7 +221,9 @@ public class ExcelUtils {
         return style;
     }
 
-    // 字符串转日期
+    /**
+     * 字符串转日期
+     */
     private Date parseDate(String strDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
@@ -217,7 +236,9 @@ public class ExcelUtils {
         return date;
     }
 
-    // 发送响应结果
+    /**
+     * 发送响应结果
+     */
     public void sendHttpResponse(HttpServletResponse response, String fileName, Workbook workbook) {
         try {
             fileName += System.currentTimeMillis() + ".xlsx";
