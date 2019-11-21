@@ -92,23 +92,6 @@ public class TtlProductInfoServiceImpl extends AbstractService<TtlProductInfoPo>
     }
 
     /**
-     * `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '记录唯一标识',
-     * `product_name` VARCHAR(50) NOT NULL COMMENT '商品名称',
-     * `category_id` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '类型ID',
-     * `category_name` VARCHAR(50) NOT NULL COMMENT '冗余分类名称-避免跨表join',
-     * `branch_id` BIGINT(20) NOT NULL COMMENT '品牌ID',
-     * `branch_name` VARCHAR(50) NOT NULL COMMENT '冗余品牌名称-避免跨表join',
-     * `shop_id` BIGINT(20) NOT NULL COMMENT '商品ID',
-     * `shop_name` VARCHAR(50) NOT NULL COMMENT '冗余商店名称-避免跨表join',
-     * `price` DECIMAL(10,2) NOT NULL COMMENT '商品当前价格-属于热点数据，而且价格变化需要记录，需要价格详情表',
-     * `stock` INT(11) NOT NULL COMMENT '库存-热点数据',
-     * `sales_num` INT(11) NOT NULL COMMENT '销量',
-     * `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
-     * `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-     * `is_del` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '记录是否已经删除',
-     * <p>
-     * <p>
-     * <p>
      * 获取格式化信息
      */
 
@@ -166,7 +149,7 @@ public class TtlProductInfoServiceImpl extends AbstractService<TtlProductInfoPo>
             } else {
                 map.put("limit", THREAD_MAX_ROW);
             }
-            FutureTask<List<TtlProductInfoPo>> task = new FutureTask<>(new listThread(map));
+            FutureTask<List<TtlProductInfoPo>> task = new FutureTask<>(new ListThread(map));
             log.info("开始查询第{}条开始的{}条记录", i * THREAD_MAX_ROW, THREAD_MAX_ROW);
             new Thread(task).start();
             // 将任务添加到tasks列表中
@@ -174,11 +157,11 @@ public class TtlProductInfoServiceImpl extends AbstractService<TtlProductInfoPo>
         }
     }
 
-    private class listThread implements Callable<List<TtlProductInfoPo>> {
+    private class ListThread implements Callable<List<TtlProductInfoPo>> {
 
         private Map<String, Object> map;
 
-        private listThread(Map<String, Object> map) {
+        private ListThread(Map<String, Object> map) {
             this.map = map;
         }
 
