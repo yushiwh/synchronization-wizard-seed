@@ -634,6 +634,10 @@ CREATE TABLE `ttl_product_info` (
 
 http://localhost:8080/excelUtils/export
 
+---
 
+使用 localdatetime，具体例子可见
+1. TestLocalDateTimeController。有前端传入和后端传出的例子，需要定义一个自定义的转化类LocalDateTimeConverter
+2. 更多例子见：LocalDateTimeUtil
 
 
