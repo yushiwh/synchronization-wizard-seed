@@ -16,6 +16,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 /**
  * 〈LocalDateTime的例子〉
@@ -167,9 +168,27 @@ public class LocalDateTimeUtil {
         System.out.println();
         logger.info("=================字符串转 LocalDateTime==================");
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter dfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime ldt = LocalDateTime.parse("2019-12-01 19:45:23", df);
-        logger.info("字符串转 LocalDateTime---->:"+ldt);
-        logger.info("年:"+ldt.getYear());
+        logger.info("字符串转 LocalDateTime---->:" + ldt);
+        logger.info("年:" + ldt.getYear());
+
+        System.out.println();
+        logger.info("=================LocalDateTime格式化Date==================");
+        Date date = new Date();
+        long timestamp = System.currentTimeMillis();
+        Date datatimestamp = new Date(timestamp);
+        Instant instant = date.toInstant();
+        Instant instanttimestamp = datatimestamp.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        System.out.println("new Date()--->" + instant.atZone(zoneId).format(df) + "--Time-->"
+                + instant.atZone(zoneId).format(dfTime) + "--Date-->"
+                + instant.atZone(zoneId).format(dfDate));
+        System.out.println("timestamp--->" + instanttimestamp.atZone(zoneId).format(df) + "--Time-->"
+                + instanttimestamp.atZone(zoneId).format(dfTime) + "--Date-->"
+                + instanttimestamp.atZone(zoneId).format(dfDate));
+
 
     }
 
