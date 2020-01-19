@@ -27,11 +27,13 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
  */
 @Configuration
 public class RabbitConfig {
+    public static final String SyncOrderQUEUE = "hellotest";
+
     @Bean
     public Queue helloQueue() {
-        return new Queue("hellotest");
-    }
+        return new Queue(SyncOrderQUEUE, true);
 
+    }
 
     @Bean
     public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
@@ -44,5 +46,4 @@ public class RabbitConfig {
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
-
 }
