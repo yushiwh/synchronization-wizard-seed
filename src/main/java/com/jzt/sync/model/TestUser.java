@@ -3,10 +3,14 @@ package com.jzt.sync.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
+/**
+ * @author Administrator
+ */
 @Table(name = "test_user")
 @Data
-public class TestUser {
+public class TestUser implements Serializable {
     /**
      * id
      */

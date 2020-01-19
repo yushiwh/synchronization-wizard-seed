@@ -10,6 +10,7 @@
  */
 package com.jzt.sync.service.impl;
 
+import com.jzt.sync.model.TestUser;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,4 +36,11 @@ public class Receiver {
     public void process(String hello) {
         logger.info("收到消息" + hello);
     }
+
+
+    @RabbitHandler
+    public void process(TestUser user) {
+        logger.info("收到消息" + user);
+    }
+
 }
