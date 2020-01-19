@@ -38,7 +38,8 @@ public class RestTemplateController {
         String url = "";
         logger.info("~~~~开始调用订单状态更新~~~~~传入参数" + jsonParam);
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
         headers.set(HttpHeaders.ACCEPT_CHARSET, StandardCharsets.UTF_8.toString());
         HttpEntity<String> entity = new HttpEntity<>(jsonParam, headers);
         logger.info(StringUtils.join("调用的地址-->", url));
