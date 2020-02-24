@@ -330,6 +330,10 @@ swagger.docket.bbb.basePackage=com.yonghui
 
 说明：默认配置与分组配置可以一起使用。在分组配置中没有配置的内容将使用默认配置替代，所以默认配置可以作为分组配置公共部分属性的配置。`swagger.docket.aaa.globalOperationParameters[0].name`会覆盖同名的全局配置。
 
+访问地址   http://localhost:8080/swagger-ui.html
+
+
+
 #### JSR-303校验注解支持
 
 支持对JSR-303校验注解的展示，如下图所示：
