@@ -1,25 +1,27 @@
 package com.conpany.project;
 
+import com.jzt.sync.controller.UserController;
+import com.jzt.sync.util.LocalDateTimeUtil;
+import com.jzt.sync.util.java8;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class MyTest extends Tester {
+    private static final Logger logger = LoggerFactory.getLogger(MyTest.class);
+
+
+    @Autowired
+    private java8 java8;
 
     @Test
-    public void execTestClientDataController() throws Exception {
-
-        List<String> list =  Arrays.asList("a1", "a2", "b1", "c2", "c1");
-        Stream<String> stream  = list.stream();
-        stream.forEach(System.out::println);
-
-
-        List<Integer> listInt = Arrays.asList(1,2,3);
-        Stream<Integer> streamInt  = listInt.stream();
-        streamInt.map(i->i*i).forEach(System.out::println);
-
+    public void getData() throws Exception {
+        java8.getData();
     }
 
 }

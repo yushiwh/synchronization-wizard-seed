@@ -31,7 +31,7 @@ public class RestTemplateConfig {
      */
     @Bean
     public RestTemplate restTemplate() {
-        RestTemplate restTemplate = new RestTemplate(okHttp3ClientHttpRequestFactory());
+        RestTemplate restTemplate = new RestTemplate(simpleClientHttpRequestFactory());
         return restTemplate;
     }
 
@@ -48,7 +48,7 @@ public class RestTemplateConfig {
         return restTemplate;
     }
 
-    @Bean("OKHttp3")
+   // @Bean("OKHttp3")
     public RestTemplate OKHttp3RestTemplate() {
         RestTemplate restTemplate = new RestTemplate(okHttp3ClientHttpRequestFactory());
         return restTemplate;
