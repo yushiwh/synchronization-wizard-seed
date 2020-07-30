@@ -1,7 +1,6 @@
 package com.jzt.sync.util;
 
 
-import org.apache.ibatis.javassist.runtime.Desc;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -10,7 +9,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 @Component
-public class java8 {
+public class Java8 {
     public void getData() {
         List<String> list = Arrays.asList("a1", "a2", "b1", "c2", "c1");
         Stream<String> stream = list.stream();
@@ -26,6 +25,7 @@ public class java8 {
 
         Random random = new Random();
         random.ints(1, 100).limit(10).forEach(System.out::println);
+
 
     }
 }
