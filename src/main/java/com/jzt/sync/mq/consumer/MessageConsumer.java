@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-@RabbitListener(queues = "message.center.create")
+@RabbitListener(queues = "nickQueue")
 public class MessageConsumer {
     /**
      * logger instance

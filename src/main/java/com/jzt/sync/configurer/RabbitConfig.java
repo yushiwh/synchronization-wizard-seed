@@ -10,6 +10,9 @@
  */
 package com.jzt.sync.configurer;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -32,8 +35,11 @@ public class RabbitConfig {
     @Bean
     public Queue helloQueue() {
         return new Queue(SyncOrderQUEUE, true);
-
     }
+
+
+
+
 
     @Bean
     public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
